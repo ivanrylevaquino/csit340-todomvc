@@ -99,8 +99,12 @@ function Todos() {
                     onChange={() => handleToggle(todo.id)}
                     className="ml-[15px] size-[30px] shrink-0 cursor-pointer accent-[#59a193]"
                     />
-                    <span className="flex-1 py-[15px] pr-[60px] pl-[15px] break-all">
-                    Learn the spread operator
+                    <span
+                      className={`flex-1 py-[15px] pr-[60px] pl-[15px] break-all ${
+                        todo.completed ? 'text-[#d9d9d9] line-through' : ''
+                      }`}
+                    >
+                      {todo.text}
                     </span>
                     <button
                     type="button"
