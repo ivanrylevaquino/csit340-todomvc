@@ -1,11 +1,9 @@
-
 import { useState } from 'react'
 
 function Todos() {
     const [text, setText] = useState('')
     const [todos, setTodos] = useState([])
 
-     
     function handleSubmit(e) {
         e.preventDefault()
         const trimmed = text.trim()
@@ -16,7 +14,7 @@ function Todos() {
         setTodos([...todos, newTodo])
         setText('')
     }
- 
+
     function handleToggle(id) {
         setTodos(
           todos.map((todo) =>
@@ -24,16 +22,19 @@ function Todos() {
           )
         )
     }
+
     function handleDelete(id) {
       setTodos(todos.filter((todo) => todo.id !== id))
-    } 
+    }
 
-  return (
+    const itemsLeft = todos.filter((todo) => !todo.completed).length
+
+    return (
     <section className="mx-auto max-w-[550px]">
         <h1 className="text-center text-[80px] font-extralight text-[#b83f45]">
             todos
         </h1>
-        
+
         <div className="relative bg-white shadow-[0_2px_4px_0_rgba(0,0,0,0.2),0_25px_50px_0_rgba(0,0,0,0.1)]">
             <form onSubmit={handleSubmit}>
                 <input
@@ -51,14 +52,13 @@ function Todos() {
                     className="absolute -top-[66px] left-0 flex h-[65px] w-[60px] cursor-pointer items-center justify-center text-[22px] text-[#949494] peer-checked:text-[#484848]">
                     <span className="rotate-90">❯</span>
                 </label>
-                
+
                 <ul>
                 {todos.map((todo) => (
                     <li
                       key={todo.id}
                       className="group relative flex items-center border-b border-[#ededed] text-2xl"
                     >
-
                       <input
                     type="checkbox"
                     checked={todo.completed}
@@ -81,7 +81,8 @@ function Todos() {
             </main>
             <footer className="grid h-10 grid-cols-3 items-center border-t border-[#e6e6e6] px-[15px] text-[15px]">
                 <span>
-                    <strong className="font-light">1</strong> item left
+                    <strong className="font-light">{itemsLeft}</strong>{' '}
+                    {itemsLeft === 1 ? 'item' : 'items'} left
                 </span>
                 <ul className="flex justify-center gap-1">
                     <li>
@@ -117,7 +118,7 @@ function Todos() {
       )}
         </div>
     </section>
-  )
+    )
 }
- 
+
 export default Todos
